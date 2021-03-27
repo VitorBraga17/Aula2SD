@@ -33,6 +33,7 @@ public class SimpleJavaClient {
                 str = new String(line).trim();
                 System.out.println(str);
 
+                System.out.println("--------------------------------------------------\n\n");
             } while(!str.trim().equals("bye"));
 
             s.close();

@@ -11,44 +11,62 @@ public class SimpleJavaServer {
     public static void main(String[] args) {
         try {
             ServerSocket s = new ServerSocket(9999);
-            String str,op,flag;
-            int num,num2,soma;
+            String str,str2,str3,str4,op,flag;
+            int num=0,num2=0;
+            float soma=0;
             while(true) {
                 Socket c = s.accept();
                 InputStream i = c.getInputStream();
                 OutputStream o = c.getOutputStream();
                 do {
                     byte[] line = new byte[100];
-                    i.read(line);
+                    i.read(line);//read 1
                     str = new String(line).trim();
-                    num = Integer.parseInt(str);
-                    o.write(str.getBytes());
+                    try{
+                        num = Integer.parseInt(str);
+                        System.out.println(num);
+                    }catch(NumberFormatException ex){
+                        str = "x";
+                    }
+                    o.write(str.getBytes());//write 1
 
-                    i.read(line);
-                    str = new String(line).trim();
-                    op = str;
-                    o.write(str.getBytes());
+                    i.read(line);//read 2
+                    str2 = new String(line).trim();
+                    op = str2.substring(0,1);
+                    o.write(op.getBytes());//write 2
 
-                    i.read(line);
-                    str = new String(line).trim();
-                    num2 = Integer.parseInt(str);
-                    soma = num+num2;
-                    str = String.valueOf(soma);
-                    if(op.equals("+")){
-                        o.write(str.getBytes());
-                    }else{
-                        str = "a operacao informada esta incorreta";
-                        o.write(str.getBytes());
+                    i.read(line);//read 3
+                    str3 = new String(line).trim();
+                    try{
+                        num2 = Integer.parseInt(str3);
+                        System.out.println(num2);
+                    }catch(NumberFormatException ex){
+                        str3 = "x";
                     }
 
-
-/*
-                    i.read(line);
-                    soma = num+num2;
-                    String resposta;
-                    resposta = String.valueOf(soma);
-                    o.write(resposta.getBytes());*/
-
+                    if(op.equals("+") || op.equals("-" ) || op.equals("*") || op.equals("/") ){
+                        switch (op) {
+                            case "+":
+                                soma = num + num2;
+                                break;
+                            case "-":
+                                soma = num - num2;
+                                break;
+                            case "*":
+                                soma = num * num2;
+                                break;
+                            case "/":
+                                soma = num / num2;
+                                break;
+                        }
+                        str4 = String.valueOf(soma);
+                    }else{
+                        str4 = "x";
+                    }
+                    if(str.equals("x")|| str4.equals("x") ||str3.equals("x")){
+                        str4 = "valores incorretos! Tente novamente";
+                    }
+                    o.write(str4.getBytes());//write 3
                 } while(!str.trim().equals("bye"));
                 c.close();
             }
