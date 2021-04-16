@@ -11,7 +11,7 @@ public class SimpleJavaServer {
     public static void main(String[] args) {
         try {
             ServerSocket s = new ServerSocket(9999);
-            String str,str2,str3,str4,op,flag;
+            String str,str2,str3,str4,op;
             int num=0,num2=0;
             float soma=0;
             while(true) {
@@ -33,6 +33,7 @@ public class SimpleJavaServer {
                     i.read(line);//read 2
                     str2 = new String(line).trim();
                     op = str2.substring(0,1);
+                    System.out.println(op);
                     o.write(op.getBytes());//write 2
 
                     i.read(line);//read 3
@@ -42,6 +43,7 @@ public class SimpleJavaServer {
                         System.out.println(num2);
                     }catch(NumberFormatException ex){
                         str3 = "x";
+                        System.out.println(num2);
                     }
 
                     if(op.equals("+") || op.equals("-" ) || op.equals("*") || op.equals("/") ){

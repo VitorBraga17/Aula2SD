@@ -32,10 +32,8 @@ public class SimpleJavaClient {
                 i.read(line);
                 str = new String(line).trim();
                 System.out.println(str);
-
                 System.out.println("--------------------------------------------------\n\n");
             } while(!str.trim().equals("bye"));
-
             s.close();
         } catch (Exception var6) {
             System.err.println(var6);
